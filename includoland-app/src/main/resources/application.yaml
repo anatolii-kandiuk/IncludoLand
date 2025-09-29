@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: includoland-app
+
+  jackson:
+    time-zone: Europe/Kiev
+
+  datasource:
+    url: ${DB_URI:jdbc:postgresql://localhost:5432/includo_land}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+  liquibase:
+    default-schema: liquibase
+    change-log: classpath:/db/master.yaml
+
+  security:
+    user:
+      name: admin
+      password: admin
