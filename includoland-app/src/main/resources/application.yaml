@@ -11,8 +11,8 @@ spring:
     password: ${DB_PASSWORD:postgres}
 
   liquibase:
-    default-schema: liquibase
     change-log: classpath:/db/master.yaml
+    default-schema: includo_land
 
   security:
     user:
