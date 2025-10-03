@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop_user_role_table
+      author: anatolii
+      changes:
+        - dropTable:
+            tableName: user_role
+            cascadeConstraints: true
+
+  - changeSet:
+      id: drop_role_table
+      author: anatolii
+      changes:
+        - dropTable:
+            tableName: role
+            cascadeConstraints: true
+
+  - changeSet:
+      id: add_role_column_to_user
+      author: anatolii
+      changes:
+        - addColumn:
+            tableName: user
+            columns:
+              - column:
+                  name: role
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
