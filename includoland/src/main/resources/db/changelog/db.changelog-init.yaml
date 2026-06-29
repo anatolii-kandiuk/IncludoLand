@@ -1,0 +1,238 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: includoland
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: uuid
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_users
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_users_email
+              - column:
+                  name: is_premium
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - createTable:
+            tableName: content
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_content
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: text_data
+                  type: text
+              - column:
+                  name: type_of_content
+                  type: varchar(255)
+              - column:
+                  name: picture_link
+                  type: varchar(255)
+              - column:
+                  name: audio_link
+                  type: varchar(255)
+              - column:
+                  name: is_public
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: author_uuid
+                  type: uuid
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: result
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_result
+              - column:
+                  name: duration_sec
+                  type: int
+              - column:
+                  name: score
+                  type: float
+              - column:
+                  name: mistake
+                  type: float
+              - column:
+                  name: attentiveness
+                  type: float
+              - column:
+                  name: user_uuid
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: content_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: notice
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_notice
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: text
+                  type: text
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: specialist_uuid
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: child_uuid
+                  type: uuid
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: specialist_student_mapping
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_specialist_student_mapping
+              - column:
+                  name: specialist_uuid
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: child_uuid
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - addForeignKeyConstraint:
+            baseTableName: content
+            baseColumnNames: author_uuid
+            referencedTableName: users
+            referencedColumnNames: uuid
+            constraintName: fk_content_author_uuid
+
+        - addForeignKeyConstraint:
+            baseTableName: result
+            baseColumnNames: user_uuid
+            referencedTableName: users
+            referencedColumnNames: uuid
+            constraintName: fk_result_user_uuid
+
+        - addForeignKeyConstraint:
+            baseTableName: result
+            baseColumnNames: content_id
+            referencedTableName: content
+            referencedColumnNames: id
+            constraintName: fk_result_content_id
+
+        - addForeignKeyConstraint:
+            baseTableName: notice
+            baseColumnNames: specialist_uuid
+            referencedTableName: users
+            referencedColumnNames: uuid
+            constraintName: fk_notice_specialist_uuid
+
+        - addForeignKeyConstraint:
+            baseTableName: notice
+            baseColumnNames: child_uuid
+            referencedTableName: users
+            referencedColumnNames: uuid
+            constraintName: fk_notice_child_uuid
+
+        - addForeignKeyConstraint:
+            baseTableName: specialist_student_mapping
+            baseColumnNames: specialist_uuid
+            referencedTableName: users
+            referencedColumnNames: uuid
+            constraintName: fk_mapping_specialist_uuid
+
+        - addForeignKeyConstraint:
+            baseTableName: specialist_student_mapping
+            baseColumnNames: child_uuid
+            referencedTableName: users
+            referencedColumnNames: uuid
+            constraintName: fk_mapping_child_uuid
+
+        - addUniqueConstraint:
+            tableName: specialist_student_mapping
+            columnNames: specialist_uuid, child_uuid
+            constraintName: uq_specialist_student_mapping_specialist_child
