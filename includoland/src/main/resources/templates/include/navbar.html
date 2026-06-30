@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand fw-bold" th:href="@{/}">IncludoLand</a>
+
+    <div class="d-flex">
+      <div th:if="${username == null}">
+        <a class="btn btn-outline-primary rounded-pill me-2" th:href="@{/login}">Login</a>
+        <a class="btn btn-primary rounded-pill" th:href="@{/register}">Register</a>
+      </div>
+
+      <div th:if="${username != null}" class="d-flex align-items-center">
+        <span class="me-3">Привіт, <strong th:text="${username}">User</strong></span>
+        <a class="btn btn-outline-secondary rounded-pill" th:href="@{/logout}">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>
+</body>
+</html>
