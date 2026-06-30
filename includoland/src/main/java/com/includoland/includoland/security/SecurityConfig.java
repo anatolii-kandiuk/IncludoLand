@@ -28,14 +28,25 @@ import java.util.List;
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomUserDetailsService userDetailsService;
-
+    //TODO: CHECK RequestMatchers  
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers(
+                    "/",
+                    "/index",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/favicon.ico",
+                    "/api/v1/auth/**",
+                    "/login",
+                    "/register",
+                    "/privacy"
+                ).permitAll()
                 .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
