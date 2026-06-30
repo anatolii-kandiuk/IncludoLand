@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
                 savedUser.getRole().name()
         );
 
-        return new AuthResponse(token, savedUser.getRole().name(), savedUser.getUuid());
+        return new AuthResponse(token, savedUser.getRole().name(), savedUser.getUuid().toString());
     }
 
     @Override
@@ -68,6 +68,6 @@ public class AuthServiceImpl implements AuthService {
                 user.getRole().name()
         );
 
-        return new AuthResponse(token, user.getRole().name(), user.getUuid());
+        return new AuthResponse(token, user.getRole().name(), user.getUuid().toString());
     }
 }
