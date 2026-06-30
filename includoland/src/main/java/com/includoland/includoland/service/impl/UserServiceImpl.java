@@ -4,6 +4,7 @@ import com.includoland.includoland.model.entity.User;
 import com.includoland.includoland.repository.UserRepository;
 import com.includoland.includoland.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(String uuid) {
-        return userRepository.findById(uuid)
+        UUID id;
+        try {
+            id = UUID.fromString(uuid);
+        } catch (IllegalArgumentException ex) {
+            throw new EntityNotFoundException("Invalid UUID format: " + uuid);
+        }
+
+        return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + uuid));
     }
 
