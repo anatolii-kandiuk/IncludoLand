@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +23,11 @@ public class SpecialistStudentMappingServiceImpl implements SpecialistStudentMap
     @Override
     @Transactional
     public SpecialistStudentMapping assignChildToSpecialist(String childUuid, String specialistUuid) {
-        User child = userRepository.findById(childUuid)
+        UUID childId = UUID.fromString(childUuid);
+        UUID specialistId = UUID.fromString(specialistUuid);
+        User child = userRepository.findById(childId)
                 .orElseThrow(() -> new EntityNotFoundException("Child not found with id: " + childUuid));
-        User specialist = userRepository.findById(specialistUuid)
+        User specialist = userRepository.findById(specialistId)
                 .orElseThrow(() -> new EntityNotFoundException("Specialist not found with id: " + specialistUuid));
 
         if (child.getRole() != Role.CHILD) {

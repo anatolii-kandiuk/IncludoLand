@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +23,11 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     @Transactional
     public Notice createNotice(String title, String text, String specialistUuid, String childUuid) {
-        User specialist = userRepository.findById(specialistUuid)
+        UUID specialistId = UUID.fromString(specialistUuid);
+        UUID childId = UUID.fromString(childUuid);
+        User specialist = userRepository.findById(specialistId)
                 .orElseThrow(() -> new EntityNotFoundException("Specialist not found with id: " + specialistUuid));
-        User child = userRepository.findById(childUuid)
+        User child = userRepository.findById(childId)
                 .orElseThrow(() -> new EntityNotFoundException("Child not found with id: " + childUuid));
 
         Notice notice = new Notice();

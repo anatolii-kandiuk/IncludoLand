@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,8 @@ public class ResultServiceImpl implements ResultService {
     @Override
     @Transactional
     public Result saveResult(Result result, String userUuid, Long contentId) {
-        User user = userRepository.findById(userUuid)
+        UUID userId = UUID.fromString(userUuid);
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userUuid));
         Content content = contentRepository.findById(contentId)
                 .orElseThrow(() -> new EntityNotFoundException("Content not found with id: " + contentId));
