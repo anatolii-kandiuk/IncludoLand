@@ -14,27 +14,30 @@
   <main class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-5">
+        <a th:href="@{/}" class="btn btn-link p-0 mb-3 d-inline-block">
+          <i class="bi bi-arrow-left me-2"></i><span th:text="#{common.back}">Назад</span>
+        </a>
         <div class="card shadow-sm border-0 rounded-4">
           <div class="card-body p-4 p-md-5">
-            <h2 class="text-center mb-4">Увійти</h2>
+            <h2 class="text-center mb-4" th:text="#{form.login.title}">Увійти</h2>
 
-            <div th:if="${param.error}" class="alert alert-danger">Невірний email або пароль.</div>
-            <div th:if="${param.success}" class="alert alert-success">Реєстрацію завершено. Тепер увійдіть у систему.</div>
+            <div th:if="${param.error}" class="alert alert-danger" th:text="#{form.login.error}">Невірний email або пароль.</div>
+            <div th:if="${param.success}" class="alert alert-success" th:text="#{form.login.success}">Реєстрацію завершено. Тепер увійдіть у систему.</div>
 
             <form th:action="@{/login}" method="post">
               <div class="mb-3">
-                <label for="username" class="form-label">Email</label>
+                <label for="username" class="form-label" th:text="#{form.login.email}">Email</label>
                 <input type="email" id="username" name="username" class="form-control" required>
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Пароль</label>
+                <label for="password" class="form-label" th:text="#{form.login.password}">Пароль</label>
                 <input type="password" id="password" name="password" class="form-control" required>
               </div>
-              <button type="submit" class="btn btn-primary w-100 rounded-pill">Увійти</button>
+              <button type="submit" class="btn btn-primary w-100 rounded-pill" th:text="#{form.login.button}">Увійти</button>
             </form>
 
             <div class="text-center mt-3">
-              <a th:href="@{/register}" class="text-decoration-none">Немає акаунту? Зареєструватися</a>
+              <a th:href="@{/register}" class="text-decoration-none" th:text="#{form.login.register_link}">Немає акаунту? Зареєструватися</a>
             </div>
           </div>
         </div>

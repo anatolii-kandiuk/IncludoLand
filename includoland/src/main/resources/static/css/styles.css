@@ -4,12 +4,20 @@ body {
   background-color: #fdfbf7;
 }
 
-.navbar-fixed-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1030;
+.navbar {
+  background-color: #fdfbf7 !important;
+  border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+  box-shadow: none;
+}
+
+.navbar-brand {
+  color: #1f2937 !important;
+  font-size: 1.5rem;
+}
+
+footer {
+  background-color: #fdfbf7 !important;
+  border-top: 1px solid rgba(31, 41, 55, 0.08) !important;
 }
 
 .hero {
@@ -25,6 +33,7 @@ body {
   font-weight: 700;
   margin-bottom: 1.25rem;
   color: #1f2937;
+  text-align: center;
 }
 
 .activity-list {
@@ -88,4 +97,12 @@ body {
 
 .activity-card-orange {
   background: linear-gradient(135deg, #ffcf5c, #ff9f43);
+}
+
+.activity-card-purple {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+}
+
+.activity-card-pink {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
 }

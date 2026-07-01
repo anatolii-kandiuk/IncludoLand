@@ -37,7 +37,9 @@ public class SecurityConfig {
                     "/login",
                     "/register",
                     "/auth/**",
-                    "/privacy"
+                    "/privacy",
+                    "/activities/**",
+                    "/api/v1/results/**"
                 ).permitAll()
                 .requestMatchers("/specialist/**").hasRole("SPECIALIST")
                 .requestMatchers("/child/**").hasRole("CHILD")

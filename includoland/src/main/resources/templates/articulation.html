@@ -1,131 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Артикуляція</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <style>
-    .activity-page {
-      min-height: 80vh;
-    }
-
-    .activity-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .flip-card {
-      width: 100%;
-      perspective: 1500px;
-    }
-
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      min-height: 470px;
-      transition: transform 0.7s ease;
-      transform-style: preserve-3d;
-      cursor: pointer;
-    }
-
-    .flip-card.flipped .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flip-card-face {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
-      background: #ffffff;
-    }
-
-    .flip-card-front,
-    .flip-card-back {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .flip-card-back {
-      transform: rotateY(180deg);
-      padding: 1.75rem;
-      justify-content: space-between;
-    }
-
-    .flip-card-front img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-    }
-
-    .card-overlay {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .activity-buttons {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .activity-buttons button {
-      flex: 1 1 48%;
-    }
-
-    .btn-start.active {
-      background-color: #198754;
-      border-color: #198754;
-    }
-
-    .rating-block {
-      display: none;
-      margin-top: 1rem;
-      padding: 1rem;
-      border-radius: 1rem;
-      background: #f8f9fa;
-    }
-
-    .rating-block.visible {
-      display: block;
-    }
-
-    .rating-stars {
-      display: flex;
-      gap: 0.5rem;
-      font-size: 1.7rem;
-      color: #ffb703;
-    }
-
-    .rating-stars span {
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" th:href="@{/css/articulation.css}">
 </head>
 <body>
   <div th:replace="include/navbar :: navbar"></div>
 
   <main class="container activity-page py-5">
+    <div sec:authorize="isAnonymous()" class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <div>
+          <strong th:text="#{guest.mode.warning}">Ви граєте в гостьовому режимі. Ваші результати не зберігаються.</strong>
+          <span th:text="#{guest.mode.save}">Для збереження прогресу</span>
+          <a th:href="@{/login}" class="alert-link" th:text="#{guest.mode.login}">Увійти</a>
+          <span>або</span>
+          <a th:href="@{/register}" class="alert-link" th:text="#{guest.mode.register}">Зареєструватися</a>.
+        </div>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
     <div class="activity-header">
       <div>
-        <a th:href="@{/}" class="btn btn-outline-secondary mb-3">Назад</a>
-        <h1 class="mb-2">Артикуляційна гімнастика</h1>
+        <a th:href="@{/}" class="btn btn-outline-secondary mb-3">
+          <i class="bi bi-arrow-left me-2"></i><span th:text="#{common.back}">Назад</span>
+        </a>
+        <h1 class="mb-2 text-center" th:text="#{articulation.title}">Артикуляційна гімнастика</h1>
       </div>
       <div class="mb-3">
-        <label for="soundFilter" class="form-label mb-1">Фільтр по звуку</label>
+        <label for="soundFilter" class="form-label mb-1" th:text="#{articulation.soundFilter}">Фільтр по звуку</label>
         <select id="soundFilter" class="form-select">
-          <option>Всі звуки</option>
+          <option th:text="#{articulation.allSounds}">Всі звуки</option>
           <option>С</option>
           <option>Ш</option>
           <option>Р</option>
@@ -146,11 +58,11 @@
                     <p class="text-muted">Ось приклад завдання, яке з'явиться тут, коли база стане доступною.</p>
                   </div>
                   <div class="activity-buttons">
-                    <button type="button" class="btn btn-primary btn-start">Старт</button>
-                    <button type="button" class="btn btn-outline-secondary btn-end">Кінець</button>
+                    <button type="button" class="btn btn-primary btn-start" th:text="#{articulation.start:Старт}">Старт</button>
+                    <button type="button" class="btn btn-outline-secondary btn-end" th:text="#{articulation.end:Кінець}">Кінець</button>
                   </div>
                   <div class="rating-block">
-                    <p class="mb-2">Оціни виконання</p>
+                    <p class="mb-2" th:text="#{articulation.rating}">Оціни виконання</p>
                     <div class="rating-stars">
                       <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                     </div>
@@ -177,11 +89,11 @@
                     <p class="text-muted" th:text="${content.textData}">Короткий опис активності</p>
                   </div>
                   <div class="activity-buttons">
-                    <button type="button" class="btn btn-primary btn-start">Старт</button>
-                    <button type="button" class="btn btn-outline-secondary btn-end">Кінець</button>
+                    <button type="button" class="btn btn-primary btn-start" th:text="#{articulation.start:Старт}">Старт</button>
+                    <button type="button" class="btn btn-outline-secondary btn-end" th:text="#{articulation.end:Кінець}">Кінець</button>
                   </div>
                   <div class="rating-block">
-                    <p class="mb-2">Оціни виконання</p>
+                    <p class="mb-2" th:text="#{articulation.rating}">Оціни виконання</p>
                     <div class="rating-stars">
                       <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                     </div>
@@ -213,36 +125,6 @@
   <div th:replace="include/footer :: footer"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.flip-card').forEach(function (card) {
-        const inner = card.querySelector('.flip-card-inner');
-        const btnStart = card.querySelector('.btn-start');
-        const btnEnd = card.querySelector('.btn-end');
-        const ratingBlock = card.querySelector('.rating-block');
-
-        card.addEventListener('click', function () {
-          card.classList.toggle('flipped');
-        });
-
-        if (btnStart) {
-          btnStart.addEventListener('click', function (event) {
-            event.stopPropagation();
-            btnStart.classList.toggle('active');
-            btnStart.textContent = btnStart.classList.contains('active') ? 'Продовжити' : 'Старт';
-          });
-        }
-
-        if (btnEnd) {
-          btnEnd.addEventListener('click', function (event) {
-            event.stopPropagation();
-            if (ratingBlock) {
-              ratingBlock.classList.add('visible');
-            }
-          });
-        }
-      });
-    });
-  </script>
+  <script th:src="@{/js/articulation.js}"></script>
 </body>
 </html>
