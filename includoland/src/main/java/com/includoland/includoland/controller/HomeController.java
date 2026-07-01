@@ -1,6 +1,7 @@
 package com.includoland.includoland.controller;
 
 import com.includoland.includoland.model.entity.User;
+import com.includoland.includoland.model.enums.TypeOfContent;
 import com.includoland.includoland.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ public class HomeController {
                 model.addAttribute("username", email);
             }
         }
+
+        model.addAttribute("contentTypes", TypeOfContent.values());
         return "index";
     }
 }

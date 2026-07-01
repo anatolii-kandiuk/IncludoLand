@@ -35,21 +35,14 @@
     <section class="activities-section mt-5">
       <h2 class="activities-title" th:text="#{index.activities}">Активності</h2>
       <div class="activity-list">
-        <a href="#" class="activity-card activity-card-green">
-          <span class="activity-icon"><i class="bi bi-puzzle"></i></span>
-          <span class="activity-text" th:text="#{activity.puzzles}">ПАЗЛИ СЛІВ</span>
-        </a>
-        <a href="#" class="activity-card activity-card-teal">
-          <span class="activity-icon"><i class="bi bi-bullseye"></i></span>
-          <span class="activity-text" th:text="#{activity.attention}">УВАГА</span>
-        </a>
-        <a href="#" class="activity-card activity-card-blue">
-          <span class="activity-icon"><i class="bi bi-mic"></i></span>
-          <span class="activity-text" th:text="#{activity.articulation}">АРТИКУЛЯЦІЯ</span>
-        </a>
-        <a href="#" class="activity-card activity-card-orange">
-          <span class="activity-icon"><i class="bi bi-calculator"></i></span>
-          <span class="activity-text" th:text="#{activity.math}">МАТЕМАТИКА</span>
+        <a th:each="type : ${contentTypes}"
+           th:href="@{/activities/{slug}(slug=${#strings.toLowerCase(type.name())})}"
+           class="activity-card activity-card-blue">
+          <span class="activity-icon">
+            <i class="bi"
+               th:classappend="${type.name() == 'ARTICULATION'} ? ' bi-mic' : (${type.name() == 'MATH'} ? ' bi-calculator' : (${type.name() == 'WORD_PUZZLE' || type.name() == 'SENTENCE_PUZZLE'} ? ' bi-puzzle' : ' bi-bullseye'))"></i>
+          </span>
+          <span class="activity-text" th:text="${type.name()}">TYPE</span>
         </a>
       </div>
     </section>
