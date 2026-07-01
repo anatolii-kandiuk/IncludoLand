@@ -2,19 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
   <div class="container">
     <a class="navbar-brand fw-bold" th:href="@{/}">IncludoLand</a>
 
     <div class="d-flex">
       <div th:if="${username == null}">
-        <a class="btn btn-outline-primary rounded-pill me-2" th:href="@{/login}">Login</a>
-        <a class="btn btn-primary rounded-pill" th:href="@{/register}">Register</a>
+        <a class="btn btn-outline-primary rounded-pill me-2" th:href="@{/login}" th:text="#{navbar.login}">Вхід</a>
+        <a class="btn btn-primary rounded-pill" th:href="@{/register}" th:text="#{navbar.register}">Реєстрація</a>
       </div>
 
       <div th:if="${username != null}" class="d-flex align-items-center">
-        <span class="me-3">Привіт, <strong th:text="${username}">User</strong></span>
-        <a class="btn btn-outline-secondary rounded-pill" th:href="@{/logout}">Logout</a>
+        <span class="me-3" th:text="#{navbar.greeting} + ', ' + ${username}">Привіт, User</span>
+        <a class="btn btn-outline-secondary rounded-pill" th:href="@{/logout}" th:text="#{navbar.logout}">Вийти</a>
       </div>
     </div>
   </div>

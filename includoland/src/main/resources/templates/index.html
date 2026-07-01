@@ -19,37 +19,37 @@
   <main class="container hero">
     <div class="row">
       <div class="col-md-8 mx-auto text-center">
-        <h1 class="display-5 fw-bold">Welcome to IncludoLand</h1>
-        <p class="lead mb-4">A place for inclusive educational content and collaboration.</p>
+        <h1 class="display-5 fw-bold" th:text="#{index.title}">Ласкаво просимо до IncludoLand</h1>
+        <p class="lead mb-4" th:text="#{index.subtitle}">Платформа для інклюзивного навчання та розвитку.</p>
         <div th:if="${username != null}">
-          <p class="mb-3">Logged in as <strong th:text="${username}">User</strong></p>
-          <a class="btn btn-outline-primary rounded-pill" th:href="@{/dashboard}">Go to Dashboard</a>
+          <p class="mb-3" th:text="#{index.loggedInAs} + ' ' + ${username}">Увійшли як користувач</p>
+          <a class="btn btn-outline-primary rounded-pill" th:href="@{/dashboard}" th:text="#{index.dashboard}">Перейти до панелі</a>
         </div>
         <div th:if="${username == null}">
-          <a class="btn btn-primary rounded-pill me-2" th:href="@{/register}">Get Started</a>
-          <a class="btn btn-outline-secondary rounded-pill" th:href="@{/login}">Log in</a>
+          <a class="btn btn-primary rounded-pill me-2" th:href="@{/register}" th:text="#{index.getStarted}">Почати</a>
+          <a class="btn btn-outline-secondary rounded-pill" th:href="@{/login}" th:text="#{index.logIn}">Увійти</a>
         </div>
       </div>
     </div>
 
     <section class="activities-section mt-5">
-      <h2 class="activities-title">Активності</h2>
+      <h2 class="activities-title" th:text="#{index.activities}">Активності</h2>
       <div class="activity-list">
         <a href="#" class="activity-card activity-card-green">
           <span class="activity-icon"><i class="bi bi-puzzle"></i></span>
-          <span class="activity-text">ПАЗЛИ СЛІВ</span>
+          <span class="activity-text" th:text="#{activity.puzzles}">ПАЗЛИ СЛІВ</span>
         </a>
         <a href="#" class="activity-card activity-card-teal">
           <span class="activity-icon"><i class="bi bi-bullseye"></i></span>
-          <span class="activity-text">УВАГА</span>
+          <span class="activity-text" th:text="#{activity.attention}">УВАГА</span>
         </a>
         <a href="#" class="activity-card activity-card-blue">
           <span class="activity-icon"><i class="bi bi-mic"></i></span>
-          <span class="activity-text">АРТИКУЛЯЦІЯ</span>
+          <span class="activity-text" th:text="#{activity.articulation}">АРТИКУЛЯЦІЯ</span>
         </a>
         <a href="#" class="activity-card activity-card-orange">
           <span class="activity-icon"><i class="bi bi-calculator"></i></span>
-          <span class="activity-text">МАТЕМАТИКА</span>
+          <span class="activity-text" th:text="#{activity.math}">МАТЕМАТИКА</span>
         </a>
       </div>
     </section>
