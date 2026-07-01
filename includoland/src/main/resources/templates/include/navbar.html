@@ -14,7 +14,9 @@
 
       <div th:if="${username != null}" class="d-flex align-items-center">
         <span class="me-3" th:text="#{navbar.greeting} + ', ' + ${username}">Привіт, User</span>
-        <a class="btn btn-outline-secondary rounded-pill" th:href="@{/logout}" th:text="#{navbar.logout}">Вийти</a>
+        <form th:action="@{/logout}" method="post" class="d-inline">
+          <button type="submit" class="btn btn-outline-secondary rounded-pill" th:text="#{navbar.logout}">Вийти</button>
+        </form>
       </div>
     </div>
   </div>
