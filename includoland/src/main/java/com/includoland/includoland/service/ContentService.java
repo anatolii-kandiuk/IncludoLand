@@ -9,4 +9,6 @@ public interface ContentService {
     List<Content> getAllPublicContent();
 
     List<Content> getContentByType(TypeOfContent type);
+
+    Content savContent(Content content);
 }

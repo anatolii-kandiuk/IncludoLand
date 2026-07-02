@@ -23,15 +23,12 @@ public class ResultController {
     public ResponseEntity<String> saveResult(@RequestBody ResultDTO resultDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // Перевірка авторизації: якщо користувач не автентифікований або є anonymousUser
         if (authentication == null 
             || !authentication.isAuthenticated() 
             || "anonymousUser".equals(authentication.getPrincipal())) {
-            // Гостьовий режим: просто повертаємо успіх без збереження
             return ResponseEntity.ok("{\"status\": \"guest_mode\", \"message\": \"Results not saved in guest mode\"}");
         }
 
-        // Авторизований користувач: зберігаємо результат
         String userEmail = authentication.getName();
         try {
             Result result = new Result();

@@ -23,4 +23,9 @@ public class ContentServiceImpl implements ContentService {
     public List<Content> getContentByType(TypeOfContent type) {
         return contentRepository.findByTypeOfContent(type);
     }
+
+    @Override
+    public Content savContent(Content content) {
+        return contentRepository.save(content);
+    }
 }
