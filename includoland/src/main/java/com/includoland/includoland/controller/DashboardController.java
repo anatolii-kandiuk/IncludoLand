@@ -26,7 +26,7 @@ public class DashboardController {
         User user = userService.getUserByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("username", user.getFirstName());
-        return "specialist_dashboard";
+        return "specialist/specialist_dashboard";
     }
 
     @GetMapping("/child/dashboard")
@@ -34,6 +34,6 @@ public class DashboardController {
         User user = userService.getUserByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
         model.addAttribute("username", user.getFirstName());
-        return "child_dashboard";
+        return "child/child_dashboard";
     }
 }

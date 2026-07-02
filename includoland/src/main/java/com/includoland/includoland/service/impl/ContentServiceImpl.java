@@ -25,7 +25,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Content savContent(Content content) {
+    public Content saveContent(Content content) {
         return contentRepository.save(content);
     }
 }

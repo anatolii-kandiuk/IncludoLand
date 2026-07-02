@@ -37,6 +37,6 @@ public class ContentController {
         }
 
         model.addAttribute("contents", contentList);
-        return "articulation";
+        return "content/articulation";
     }
 }

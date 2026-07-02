@@ -10,5 +10,5 @@ public interface ContentService {
 
     List<Content> getContentByType(TypeOfContent type);
 
-    Content savContent(Content content);
+    Content saveContent(Content content);
 }

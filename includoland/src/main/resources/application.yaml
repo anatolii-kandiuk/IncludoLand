@@ -1,6 +1,12 @@
 spring:
   application:
     name: includoland
+  config:
+    import: optional:file:.env[.properties]
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 20MB
   messages:
     basename: messages/messages
     encoding: UTF-8
@@ -13,10 +19,10 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-init.yaml
-  cloud:
-    r2:
-      endpoint: ${R2_ENDPOINT}
-      access-key: ${R2_ACCESS_KEY}
-      secret-key: ${R2_SECRET_KEY}
-      bucket-name: ${R2_BUCKET_NAME}
-      public-url: ${R2_PUBLIC_URL}
+cloud:
+  r2:
+    endpoint: ${R2_ENDPOINT}
+    access-key: ${R2_ACCESS_KEY}
+    secret-key: ${R2_SECRET_KEY}
+    bucket-name: ${R2_BUCKET_NAME}
+    public-url: ${R2_PUBLIC_URL}

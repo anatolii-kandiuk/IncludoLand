@@ -1,58 +1,172 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Кабінет спеціаліста</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Панель спеціаліста | IncludoLand</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .tree-folder > a { transition: color 0.2s ease; }
+        .tree-folder > a:hover { color: #0d6efd !important; }
+        .tree-file { font-size: 0.95rem; }
+        .tree-file:hover { background-color: #f8f9fa; border-radius: 4px; }
+    </style>
 </head>
-<body>
-  <div th:replace="include/navbar :: navbar"></div>
+<body class="bg-light">
+    <div th:replace="include/navbar :: navbar"></div>
 
-  <main class="container py-5">
-    <div class="row g-4">
-      <div class="col-lg-4">
-        <div class="card rounded-4 shadow-sm border-0 p-4 specialist-panel">
-          <h2 class="fw-bold mb-3"><i class="bi bi-person-badge me-2"></i>Панель спеціаліста</h2>
-          <p class="text-muted">Вітаємо, <span class="fw-semibold" th:text="${user.firstName} + ' ' + ${user.lastName}">Ім'я Прізвище</span>!</p>
-          <button class="btn btn-primary rounded-pill w-100 mt-3">
-            <i class="bi bi-plus-circle me-2"></i>Створити нове завдання / нотатку
-          </button>
-        </div>
-      </div>
-      <div class="col-lg-8">
-        <div class="card rounded-4 shadow-sm border-0 p-4">
-          <h3 class="fw-semibold mb-3">Мої вихованці</h3>
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr>
-                  <th>ПІБ дитини</th>
-                  <th>Останній результат</th>
-                  <th>Статус</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Олена Коваль</td>
-                  <td>Виконала 3 вправи</td>
-                  <td><span class="badge bg-success">Активно</span></td>
-                </tr>
-                <tr>
-                  <td>Микита Шевчук</td>
-                  <td>Потребує уваги</td>
-                  <td><span class="badge bg-warning text-dark">Потребує підтримки</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+    <main class="container py-5">
+        <div class="row g-4">            
+            <div class="col-lg-4">                
+                <div class="card rounded-4 shadow-sm border-0 p-4 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 50px; height: 50px; font-size: 1.5rem;">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Панель спеціаліста</h5>
+                            <small class="text-muted">Вітаємо, <span th:text="${user.firstName}">Ім'я</span>!</small>
+                        </div>
+                    </div>
+                    
+                    <a th:href="@{/specialist/content/add}" class="btn btn-primary rounded-pill w-100 fw-semibold shadow-sm">
+                        <i class="bi bi-plus-circle me-2"></i>Створити контент
+                    </a>
+                </div>
 
-  <div th:replace="include/footer :: footer"></div>
+                <!-- Моя бібліотека (Дерево директорій) -->
+                <div class="card rounded-4 shadow-sm border-0 p-4">
+                    <h5 class="fw-bold mb-4"><i class="bi bi-collection-play me-2 text-primary"></i>Моя бібліотека</h5>
+                    
+                    <ul class="list-unstyled mb-0">
+                        <!-- Папка: Артикуляція -->
+                        <li class="tree-folder mb-3">
+                            <a data-bs-toggle="collapse" href="#folderArticulation" role="button" aria-expanded="false" class="text-decoration-none text-dark fw-semibold d-flex align-items-center">
+                                <i class="bi bi-folder2-open text-warning me-2 fs-5"></i> ARTICULATION
+                            </a>
+                            <ul class="collapse show list-unstyled ms-4 mt-2" id="folderArticulation">
+                                <li class="tree-file d-flex justify-content-between align-items-center py-1 px-2">
+                                    <span class="text-secondary"><i class="bi bi-file-earmark-music me-2"></i>Вправа "Годинник"</span>
+                                    <a href="#" class="text-primary" title="Відтворити"><i class="bi bi-play-circle"></i></a>
+                                </li>
+                                <li class="tree-file d-flex justify-content-between align-items-center py-1 px-2">
+                                    <span class="text-secondary"><i class="bi bi-file-earmark-music me-2"></i>Звук [Р]</span>
+                                    <a href="#" class="text-primary" title="Відтворити"><i class="bi bi-play-circle"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Папка: Математика -->
+                        <li class="tree-folder mb-3">
+                            <a data-bs-toggle="collapse" href="#folderMath" role="button" aria-expanded="false" class="text-decoration-none text-dark fw-semibold d-flex align-items-center">
+                                <i class="bi bi-folder2 text-warning me-2 fs-5"></i> MATH
+                            </a>
+                            <ul class="collapse list-unstyled ms-4 mt-2" id="folderMath">
+                                <li class="tree-file d-flex justify-content-between align-items-center py-1 px-2">
+                                    <span class="text-secondary"><i class="bi bi-file-earmark-bar-graph me-2"></i>Рахуємо до 10</span>
+                                    <a href="#" class="text-primary" title="Відтворити"><i class="bi bi-play-circle"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Інші папки за аналогією -->
+                        <li class="tree-folder mb-2">
+                            <a data-bs-toggle="collapse" href="#folderWord" role="button" aria-expanded="false" class="text-decoration-none text-dark fw-semibold d-flex align-items-center">
+                                <i class="bi bi-folder2 text-warning me-2 fs-5"></i> WORD_PUZZLE
+                            </a>
+                            <ul class="collapse list-unstyled ms-4 mt-2" id="folderWord">
+                                <li class="tree-file text-muted fst-italic py-1">Папка порожня</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ГОЛОВНА ПАНЕЛЬ (Праворуч) -->
+            <div class="col-lg-8">
+                <div class="card rounded-4 shadow-sm border-0 p-4 h-100">
+                    
+                    <!-- Шапка головної панелі -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+                        <h4 class="fw-bold m-0">Мої вихованці</h4>
+                        <button class="btn btn-success rounded-pill fw-semibold shadow-sm">
+                            <i class="bi bi-person-plus-fill me-2"></i>Додати дитину
+                        </button>
+                    </div>
+
+                    <!-- Панель пошуку -->
+                    <div class="input-group mb-4 shadow-sm rounded-pill overflow-hidden">
+                        <span class="input-group-text bg-white border-0 ps-4"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" class="form-control border-0 py-2 shadow-none" placeholder="Пошук за ім'ям або email...">
+                    </div>
+
+                    <!-- Таблиця дітей -->
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="rounded-start-3 px-3">ПІБ дитини</th>
+                                    <th>Останній результат</th>
+                                    <th>Статус</th>
+                                    <th class="rounded-end-3 text-end px-3">Дії</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Дитина 1 -->
+                                <tr>
+                                    <td class="px-3 fw-medium">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-secondary bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center me-2" style="width: 32px; height: 32px;">
+                                                <i class="bi bi-person-fill text-secondary"></i>
+                                            </div>
+                                            Олена Коваль
+                                        </div>
+                                    </td>
+                                    <td class="text-muted"><small>Виконала 3 вправи (вчора)</small></td>
+                                    <td><span class="badge bg-success bg-opacity-10 text-success border border-success">Активно</span></td>
+                                    <td class="text-end px-3">
+                                        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Деталі">
+                                            <i class="bi bi-info-circle"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Відключити/Видалити">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Дитина 2 -->
+                                <tr>
+                                    <td class="px-3 fw-medium">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-secondary bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center me-2" style="width: 32px; height: 32px;">
+                                                <i class="bi bi-person-fill text-secondary"></i>
+                                            </div>
+                                            Микита Шевчук
+                                        </div>
+                                    </td>
+                                    <td class="text-muted"><small>Не заходив 5 днів</small></td>
+                                    <td><span class="badge bg-warning bg-opacity-10 text-warning border border-warning">Потребує уваги</span></td>
+                                    <td class="text-end px-3">
+                                        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Деталі">
+                                            <i class="bi bi-info-circle"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Відключити/Видалити">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="include/footer :: footer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
