@@ -1,4 +1,4 @@
-package com.includoland.includoland.dto.auth;
+package com.includoland.includoland.model.dto.auth;
 
 import com.includoland.includoland.model.enums.Role;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package com.includoland.includoland.service.impl;
 
-import com.includoland.includoland.dto.auth.AuthResponse;
-import com.includoland.includoland.dto.auth.LoginRequest;
-import com.includoland.includoland.dto.auth.RegisterRequest;
+import com.includoland.includoland.model.dto.auth.AuthResponse;
+import com.includoland.includoland.model.dto.auth.LoginRequest;
+import com.includoland.includoland.model.dto.auth.RegisterRequest;
 import com.includoland.includoland.model.entity.User;
 import com.includoland.includoland.repository.UserRepository;
 import com.includoland.includoland.security.JwtService;
